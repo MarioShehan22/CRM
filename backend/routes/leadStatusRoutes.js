@@ -8,13 +8,26 @@ const {
     deleteLeadStatus,
 } = require("../controllers/leadStatusController");
 
+const validateRequest = require("../middleware/validateRequest");
+
+const {
+    idParamValidation,
+    leadStatusValidation,
+} = require("../validations/crmValidations");
+
 const router = express.Router();
 
 router.use(authMiddleware);
 
-router.post("/", createLeadStatus);
+router.post("/", leadStatusValidation, validateRequest, createLeadStatus);
 router.get("/", getAllLeadStatuses);
-router.put("/:id", updateLeadStatus);
-router.delete("/:id", deleteLeadStatus);
+router.put(
+    "/:id",
+    idParamValidation,
+    leadStatusValidation,
+    validateRequest,
+    updateLeadStatus
+);
+router.delete("/:id", idParamValidation, validateRequest, deleteLeadStatus);
 
 module.exports = router;

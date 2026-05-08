@@ -8,13 +8,26 @@ const {
     deleteLeadSource,
 } = require("../controllers/leadSourceController");
 
+const validateRequest = require("../middleware/validateRequest");
+
+const {
+    idParamValidation,
+    leadSourceValidation,
+} = require("../validations/crmValidations");
+
 const router = express.Router();
 
 router.use(authMiddleware);
 
-router.post("/", createLeadSource);
+router.post("/", leadSourceValidation, validateRequest, createLeadSource);
 router.get("/", getAllLeadSources);
-router.put("/:id", updateLeadSource);
-router.delete("/:id", deleteLeadSource);
+router.put(
+    "/:id",
+    idParamValidation,
+    leadSourceValidation,
+    validateRequest,
+    updateLeadSource
+);
+router.delete("/:id", idParamValidation, validateRequest, deleteLeadSource);
 
 module.exports = router;

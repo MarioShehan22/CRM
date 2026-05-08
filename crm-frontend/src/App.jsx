@@ -5,6 +5,9 @@ import Leads from "./pages/Leads";
 import LeadForm from "./pages/LeadForm";
 import LeadDetails from "./pages/LeadDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LeadSources from "./pages/LeadSources.jsx";
+import LeadStatuses from "./pages/LeadStatuses.jsx";
+import Salespersons from "./pages/Salespersons.jsx";
 
 function App() {
     return (
@@ -52,6 +55,32 @@ function App() {
                 element={
                     <ProtectedRoute>
                         <LeadDetails />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/lead-sources"
+                element={
+                    <ProtectedRoute>
+                        <LeadSources />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/lead-statuses"
+                element={
+                    <ProtectedRoute>
+                        <LeadStatuses />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/salespersons"
+                element={
+                    <ProtectedRoute>
+                        <Salespersons />
                     </ProtectedRoute>
                 }
             />

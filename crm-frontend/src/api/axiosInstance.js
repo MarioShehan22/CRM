@@ -4,14 +4,21 @@ const axiosInstance = axios.create({
     baseURL: "http://localhost:5000/api",
 });
 
-axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const tokenCookie = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("token="));
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
+        if (tokenCookie) {
+            const tokenValue = tokenCookie.split("=")[1];
 
-    return config;
-});
+            config.headers.Authorization = `Bearer ${tokenValue}`;
+        }
+
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 
 export default axiosInstance;

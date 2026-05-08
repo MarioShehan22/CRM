@@ -4,8 +4,11 @@ function Layout({ children }) {
     const navigate = useNavigate();
 
     const logout = () => {
-        localStorage.removeItem("token");
+        document.cookie =
+            "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
         localStorage.removeItem("user");
+
         navigate("/login");
     };
 
@@ -28,11 +31,21 @@ function Layout({ children }) {
                     <NavLink to="/dashboard" className={linkClass}>
                         Dashboard
                     </NavLink>
+
                     <NavLink to="/leads" className={linkClass}>
                         Leads
                     </NavLink>
-                    <NavLink to="/leads/create" className={linkClass}>
-                        Create Lead
+
+                    <NavLink to="/lead-sources" className={linkClass}>
+                        Lead Sources
+                    </NavLink>
+
+                    <NavLink to="/lead-statuses" className={linkClass}>
+                        Lead Statuses
+                    </NavLink>
+
+                    <NavLink to="/salespersons" className={linkClass}>
+                        Salespersons
                     </NavLink>
                 </nav>
 
@@ -51,7 +64,7 @@ function Layout({ children }) {
                             Sales CRM Dashboard
                         </h2>
                         <p className="text-xs text-slate-500">
-                            Manage leads, notes, and pipeline progress
+                            Manage leads, notes, and progress
                         </p>
                     </div>
 

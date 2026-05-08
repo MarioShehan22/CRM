@@ -2,9 +2,11 @@ import { Navigate } from "react-router-dom";
 import Layout from "./Layout";
 
 function ProtectedRoute({ children }) {
-    const token = localStorage.getItem("token");
+    const tokenCookie = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="));
 
-    if (!token) {
+    if (!tokenCookie) {
         return <Navigate to="/login" />;
     }
 
